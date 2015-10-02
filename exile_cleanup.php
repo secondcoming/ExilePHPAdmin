@@ -4,23 +4,6 @@
 	
 	include 'database.php';
 
-	// Do db backup
-	// -------------------------------------------------------	 
-
-	 
-	// if mysqldump is on the system path you do not need to specify the full path
-	// simply use "mysqldump --add-drop-table ..." in this case
-	$date = date("Y-m-d_H-i-s");
-	$dumpfname = 'C:\\xampp\\htdocs\\db\\'.$dbname.'_'.$date.'.sql';
-
-	$command = "C:\\xampp\\mysql\\bin\\mysqldump --add-drop-table --host=$dbhost --user=$dbuser --password=$dbpass  exile > $dumpfname"; 
-	system($command);
-	
-	echo "backup $dumpfname made\n\n";
-	
-	// -------------------------------------------------------
-	
-
 	// Delete players not logged in for 7 days with less than 10 total_connections
 	$sql = "DELETE FROM player WHERE account_uid IN (SELECT uid FROM account WHERE last_connect_at < NOW() - INTERVAL 7 DAY AND total_connections < 10)";
 	$result = mysqli_query($db_local, $sql);
