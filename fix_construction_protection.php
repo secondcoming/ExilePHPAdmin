@@ -1,5 +1,5 @@
 <?php
-	
+	// Updates the construction table so that the maintained date matches the last time the protection was paid
 	error_reporting(E_ALL);
 	ini_set('display_errors', 1);
 	set_time_limit(300);
