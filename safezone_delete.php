@@ -1,6 +1,8 @@
 <?php
 include 'database.php';
 
+$filePath = 'C:\\xampp\\htdocs\\logs\\';
+
 $SafeZoneArray = ['2998.0603,18175.479,175,Folia','23334.605,24188.938,175,Silderas','14600,16797.2,175,Airport Mafia','23442.2,17737.1,175,Almyra','9263.3,12631.3,175,North Zaros'];
 //$SafeZoneArray = ['6325,7807,175,Stary Sobor','11666,3205,175,Otmel','4073,11677,175,Bash','11462,11348,175,Klen','12013,12653,175,NEAF'];
 
@@ -64,14 +66,15 @@ else
 
 $msg .= "======================================================\n\n";
 echo $msg;
-LogChanges($msg);
+LogChanges($msg,$filePath.'SafeZone.log');
 exit();
 
 
-function LogChanges($text)
+function LogChanges($text,$filename)
 {
   // open log file
-  $filename = "SafeZone.log";
+
+  echo '<hr>'.$filename.'<hr>';
   $fh = fopen($filename, "a") or die("Could not open log file.");
   fwrite($fh, "$text") or die("Could not write file!");
   fclose($fh);
