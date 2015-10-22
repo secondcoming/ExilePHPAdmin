@@ -5,7 +5,7 @@
 	include 'database.php';
 	
 	// Fix construction protection timestamps before deleting expired items
-	include 'fix_constructions_protection.php';
+	include 'fix_construction_protection.php';
 
 	// Delete players not logged in for 7 days with less than 10 total_connections
 	$sql = "DELETE FROM player WHERE account_uid IN (SELECT uid FROM account WHERE last_connect_at < NOW() - INTERVAL 7 DAY AND total_connections < 10)";
