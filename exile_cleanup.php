@@ -47,6 +47,10 @@
 	$sql = "DELETE FROM container WHERE spawned_at < now() - interval $ProtectionPeriod day AND last_accessed < now() - interval $ProtectionPeriod day AND last_accessed <> '0000-00-00 00:00:00'";
 	$result = mysqli_query($db_local, $sql);
 	
+	// Remove empty containers not used in 48 hours
+	$sql = "DELETE FROM container WHERE last_accessed <= NOW() - INTERVAL 48 HOUR AND cargo_items = '[[],[]]' AND cargo_magazines = '[]' AND cargo_weapons = '[]' AND cargo_container = '[]'";
+	$result = mysqli_query($db_local, $sql);
+	
 	// Remove constructions not paid for over $ProtectionPeriod days
 	$sql = "DELETE FROM construction WHERE maintained_at < NOW() - INTERVAL $ProtectionPeriod DAY";
 	$result = mysqli_query($db_local, $sql);	
