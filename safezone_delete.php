@@ -3,8 +3,12 @@ include 'database.php';
 
 $filePath = 'C:\\xampp\\htdocs\\logs\\';
 
-$SafeZoneArray = ['2998.0603,18175.479,175,Folia','23334.605,24188.938,175,Silderas','14600,16797.2,175,Airport Mafia','23442.2,17737.1,175,Almyra','9263.3,12631.3,175,North Zaros'];
-//$SafeZoneArray = ['6325,7807,175,Stary Sobor','11666,3205,175,Otmel','4073,11677,175,Bash','11462,11348,175,Klen','12013,12653,175,NEAF'];
+if (!file_exists($filePath)) {
+    mkdir($filePath, 0777, true);
+}
+
+//$SafeZoneArray = ['2998.0603,18175.479,175,Folia','23334.605,24188.938,175,Silderas','14600,16797.2,175,Airport Mafia','23442.2,17737.1,175,Almyra','9263.3,12631.3,175,North Zaros'];
+$SafeZoneArray = ['6325,7807,175,Stary Sobor','11666,3205,175,Otmel','4073,11677,175,Bash','11462,11348,175,Klen','12013,12653,175,NEAF'];
 
 
 $time = date('Y-m-d G:i:s');
@@ -47,7 +51,8 @@ while($row = mysqli_fetch_object($result))
 			$OwnerName = $row2->name;
 			
 			$sql2 = "DELETE FROM vehicle WHERE id = '$VehicleID'";
-			$result2 = mysqli_query($db_local, $sql2);
+			echo "<hr>$sql2<hr>";
+			//$result2 = mysqli_query($db_local, $sql2);
 			$IsLocked = 0;
 			$VehicleCount = $VehicleCount + 1;
 			$msg .=  "$VehicleClass ($VehicleID) parked in the $SafeZoneName safezone by $OwnerName ($VehicleOwnerUID) at $VehicleLastUpdated has been deleted\n";			
