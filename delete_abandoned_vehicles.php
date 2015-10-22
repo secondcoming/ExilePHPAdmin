@@ -5,6 +5,11 @@
 	include 'database.php';
 	$filePath = 'C:\\xampp\\htdocs\\logs\\';
 	
+	if (!file_exists($filePath)) 
+	{
+		mkdir($filePath, 0777, true);
+	}
+	
 	// -------------------------------------------------------
 
 	$time = date('Y-m-d G:i:s');
