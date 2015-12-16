@@ -20,7 +20,7 @@
 	
 	
 	// delete Vehicles not used in 48 hours and not parked in a territory
-	$sql = "SELECT * FROM vehicle WHERE last_updated < NOW() - INTERVAL 48 HOUR AND last_updated <> '0000-00-00 00:00:00'";
+	$sql = "SELECT * FROM vehicle WHERE last_updated < NOW() - INTERVAL 48 HOUR AND last_updated_at <> '0000-00-00 00:00:00'";
 	$result = mysqli_query($db_local, $sql);
 	$vehicleCount = 0;
 	while($row = mysqli_fetch_object($result))
