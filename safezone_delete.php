@@ -19,7 +19,7 @@ $msg .= "======================================================\n";
 
 
 // Unlock Vehicles parked in safezones
-$sql = "SELECT * FROM vehicle WHERE is_locked = -1 AND spawned_at < NOW() - INTERVAL 2 HOUR AND last_updated < NOW() - INTERVAL 2 HOUR AND last_updated <> '0000-00-00 00:00:00'";
+$sql = "SELECT * FROM vehicle WHERE is_locked = -1 AND spawned_at < NOW() - INTERVAL 2 HOUR AND last_updated_at < NOW() - INTERVAL 2 HOUR AND last_updated <> '0000-00-00 00:00:00'";
 $result = mysqli_query($db_local, $sql);
 $VehicleCount = 0;
 
@@ -32,7 +32,7 @@ while($row = mysqli_fetch_object($result))
 	$VehicleY = $row->position_y;
 	$VehicleOwnerUID = $row->account_uid;
 	$IsLocked = -1;
-	$VehicleLastUpdated = $row->last_updated;
+	$VehicleLastUpdated = $row->last_updated_at;
 
 	
 	foreach ($SafeZoneArray as $coords)
