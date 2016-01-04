@@ -23,15 +23,23 @@
 
 	// delete push bikes
 	$sql = "DELETE FROM vehicle WHERE class = 'Exile_Bike_OldBike' OR class = 'Exile_Bike_MountainBike'";
-	$result = mysqli_query($db_local, $sql);		
-	
-	// Delete players not logged in for $ProtectionPeriod days with less than 10 total_connections
-	$sql = "DELETE FROM player WHERE account_uid IN (SELECT uid FROM account WHERE last_connect_at < NOW() - INTERVAL $ProtectionPeriod DAY)";
 	$result = mysqli_query($db_local, $sql);
 	
 	// Remove empty containers not used in 48 hours
 	$sql = "DELETE FROM container WHERE last_updated_at <= NOW() - INTERVAL 48 HOUR AND cargo_items = '[[],[]]' AND cargo_magazines = '[]' AND cargo_weapons = '[]' AND cargo_container = '[]'";
 	$result = mysqli_query($db_local, $sql);
+
+	// Remove containers not used in 48 hours not in a territory
+	$sql = "DELETE FROM container WHERE last_updated_at <= NOW() - INTERVAL 48 HOUR AND territory_id IS NULL";
+	$result = mysqli_query($db_local, $sql);
+
+	// Remove old player history
+	$sql = "DELETE FROM player_history WHERE died_at <= NOW() - INTERVAL 24 HOUR";
+	$result = mysqli_query($db_local, $sql);
 	
+	// Remove constructions outside a territory and older than 48 hours
+	$sql = "DELETE FROM construction WHERE territory_id IS NULL AND last_updated_at < NOW() - INTERVAL 2 DAY";
+	$result = mysqli_query($db_local, $sql);	
+		
 
 ?>
