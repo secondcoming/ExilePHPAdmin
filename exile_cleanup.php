@@ -16,7 +16,7 @@
 	$date = date("Y-m-d_H-i-s");
 	$dumpfname = 'C:\\xampp\\htdocs\\db\\'.$dbname.'_'.$date.'.sql';
 	echo "<hr>$dumpfname<hr>";
-	$command = "C:\\xampp\\mysql\\bin\\mysqldump --add-drop-table --host=$dbhost --user=$dbuser --password=$dbpass  exile0940 > $dumpfname"; 
+	$command = "C:\\xampp\\mysql\\bin\\mysqldump --add-drop-table --host=$dbhost --user=$dbuser --password=$dbpass  exile > $dumpfname"; 
 	system($command);
 	
 	echo "backup $dumpfname made\n\n";
