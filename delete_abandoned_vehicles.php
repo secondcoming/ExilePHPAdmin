@@ -20,7 +20,7 @@
 	
 	
 	// delete Vehicles not used in 48 hours and not parked in a territory
-	$sql = "SELECT * FROM vehicle WHERE last_updated < NOW() - INTERVAL 48 HOUR AND last_updated_at <> '0000-00-00 00:00:00'";
+	$sql = "SELECT * FROM vehicle WHERE last_updated_at < NOW() - INTERVAL 48 HOUR AND last_updated_at <> '0000-00-00 00:00:00'";
 	$result = mysqli_query($db_local, $sql);
 	$vehicleCount = 0;
 	while($row = mysqli_fetch_object($result))
@@ -31,7 +31,7 @@
 		$VehicleY = $row->position_y;
 		$VehicleOwnerUID = $row->account_uid;
 		$IsLocked = -1;
-		$VehicleLastUpdated = $row->last_updated;
+		$VehicleLastUpdated = $row->last_updated_at;
 
 		
 		// Create array of territories
@@ -70,11 +70,9 @@
 			$row2 = mysqli_fetch_object($result2);
 			$OwnerName = $row2->name;
 			
-			//$sql2 = "UPDATE vehicle SET is_locked = 0, damage = 0, fuel = 1 WHERE id = '$VehicleID'";
 			$sql2 = "DELETE FROM vehicle WHERE id = '$VehicleID'";
 			$result2 = mysqli_query($db_local, $sql2);
 			$IsLocked = 0;
-			//echo "\n$vehicleCount - $VehicleClass abandoned by $OwnerName has been deleted<br>\n";	
 			$msg .=  "$VehicleClass ($VehicleID) abandoned by $OwnerName ($VehicleOwnerUID) at $VehicleLastUpdated has been deleted\n";				
 		}
 	}
