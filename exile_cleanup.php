@@ -1,8 +1,5 @@
 <?php
 
-	// Set the protection period
-	$ProtectionPeriod = 7;
-	
 	echo "================================\nDatabase Cleanup Started:\n================================\n";
 
 	include 'database.php';
