@@ -3,7 +3,15 @@
 	echo "================================\nDatabase Cleanup Started:\n================================\n";
 
 	include 'database.php';
-
+	
+	// clear out old logs
+	$sql = "DELETE FROM infistar_logs WHERE logname like '%OCCUPATION%' OR logname like '%PROCESSREPORTER%' AND time < NOW() - INTERVAL 4 HOUR";
+	$result = mysqli_query($db_local, $sql);	
+	
+	// clear out old logs
+	$sql = "DELETE FROM infistar_logs WHERE time < NOW() - INTERVAL 1 DAY";
+	$result = mysqli_query($db_local, $sql);	
+	
 	// Do db backup
 	// -------------------------------------------------------	 
 
@@ -13,7 +21,7 @@
 	$date = date("Y-m-d_H-i-s");
 	$dumpfname = 'C:\\xampp\\htdocs\\db\\'.$dbname.'_'.$date.'.sql';
 	echo "<hr>$dumpfname<hr>";
-	$command = "C:\\xampp\\mysql\\bin\\mysqldump --add-drop-table --host=$dbhost --user=$dbuser --password=$dbpass  exile > $dumpfname"; 
+	$command = "C:\\xampp\\mysql\\bin\\mysqldump --add-drop-table --host=$dbhost --user=$dbuser --password=$dbpass  exile0940 > $dumpfname"; 
 	system($command);
 	
 	echo "backup $dumpfname made\n\n";
